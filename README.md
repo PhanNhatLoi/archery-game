@@ -7,6 +7,8 @@ Game ban "na" don gian theo goc nhin thu nhat, co mo phong vat ly co ban:
 - Trong luc, luc can khong khi va do nay khi cham dat.
 - Muc tieu la 1 bia hinh nom dung im (dat gan hon) de tap canh luc/goc ban.
 - Co khung zoom tron de theo doi vung vua ban trung tren hinh nom.
+- Co the import anh 2D va dan vao mat truoc hinh nom.
+- Dan duoc mo phong nhu chat long, trung dich se no giot va de lai vet mau.
 
 ## Cong nghe
 
@@ -32,6 +34,7 @@ Mo `http://localhost:5173`.
 - `Shift`: chay nhanh
 - Giu chuot trai: tang luc keo na
 - Tha chuot trai: ban
+- `ESC`: thoat Pointer Lock de chon/xoa anh hinh nom
 - `R`: reset diem
 
 ## Build

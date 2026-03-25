@@ -75,6 +75,42 @@ canvas {
   transition: width 0.04s linear;
 }
 
+#imageTools {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+#dummyImageInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toolBtn {
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ui-text);
+  font-size: 12px;
+  line-height: 1;
+  padding: 7px 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toolBtn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+#imageName {
+  margin: 7px 0 0;
+  font-size: 11px;
+  color: rgba(236, 249, 255, 0.9);
+}
+
 #zoomScope {
   position: fixed;
   top: 16px;
@@ -198,6 +234,15 @@ body.charging #crosshair::after {
 
   .stat {
     font-size: 13px;
+  }
+
+  .toolBtn {
+    font-size: 11px;
+    padding: 6px 9px;
+  }
+
+  #imageName {
+    font-size: 10px;
   }
 
   #zoomScope {
