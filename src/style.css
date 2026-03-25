@@ -1,0 +1,224 @@
+:root {
+  --ui-bg: rgba(13, 28, 36, 0.7);
+  --ui-border: rgba(180, 226, 255, 0.35);
+  --ui-text: #ecf9ff;
+  --accent: #ffd166;
+  --danger: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Trebuchet MS", "Avenir Next", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 20% 20%, #1c3b53 0%, #0a1823 58%, #070f18 100%);
+  color: var(--ui-text);
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+#hud {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 20;
+  min-width: 230px;
+  padding: 14px 16px;
+  border: 1px solid var(--ui-border);
+  border-radius: 12px;
+  backdrop-filter: blur(7px);
+  background: linear-gradient(145deg, var(--ui-bg), rgba(8, 16, 24, 0.85));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+.stat strong {
+  color: var(--accent);
+}
+
+#forceMeter {
+  margin-top: 8px;
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+#forceBar {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #4fe3a2 0%, #ffe082 65%, #ff6b6b 100%);
+  box-shadow: 0 0 14px rgba(255, 153, 102, 0.55);
+  transition: width 0.04s linear;
+}
+
+#zoomScope {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+#zoomFrame {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 244, 215, 0.9);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  position: relative;
+  background: rgba(8, 18, 26, 0.85);
+}
+
+#zoomViewport {
+  width: 100%;
+  height: 100%;
+}
+
+#zoomViewport canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#zoomMarker {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: rgba(255, 66, 66, 0.9);
+  box-shadow: 0 0 12px rgba(255, 66, 66, 0.9);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+#zoomHitText {
+  margin: 0;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(6, 12, 18, 0.75);
+}
+
+#tips {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 20;
+  max-width: 380px;
+  line-height: 1.45;
+  font-size: 13px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(6, 12, 18, 0.65);
+}
+
+#tips p {
+  margin: 4px 0;
+}
+
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  pointer-events: none;
+}
+
+#crosshair::before,
+#crosshair::after {
+  content: "";
+  position: absolute;
+  background: #fffde3;
+  box-shadow: 0 0 10px rgba(255, 248, 220, 0.7);
+}
+
+#crosshair::before {
+  top: 50%;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+#crosshair::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  transform: translateX(-50%);
+}
+
+body.charging #crosshair::before,
+body.charging #crosshair::after {
+  background: var(--danger);
+  box-shadow: 0 0 14px rgba(255, 107, 107, 0.9);
+}
+
+@media (max-width: 700px) {
+  #hud {
+    top: 10px;
+    left: 10px;
+    min-width: 180px;
+    padding: 10px;
+  }
+
+  .stat {
+    font-size: 13px;
+  }
+
+  #zoomScope {
+    top: 10px;
+    right: 10px;
+  }
+
+  #zoomFrame {
+    width: 126px;
+    height: 126px;
+  }
+
+  #zoomHitText {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  #tips {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+    font-size: 12px;
+  }
+}

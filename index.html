@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Ban Na FPS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div id="hud">
+      <div class="stat"><span>Diem:</span> <strong id="score">0</strong></div>
+      <div class="stat"><span>Trung dich:</span> <strong id="hits">0</strong></div>
+      <div class="stat"><span>Goc nang:</span> <strong id="angle">0 deg</strong></div>
+      <div class="stat"><span>Luc ban:</span> <strong id="force">0%</strong></div>
+      <div id="forceMeter">
+        <div id="forceBar"></div>
+      </div>
+    </div>
+
+    <div id="zoomScope">
+      <div id="zoomFrame">
+        <div id="zoomViewport"></div>
+        <div id="zoomMarker"></div>
+      </div>
+      <p id="zoomHitText">Vung trung: -</p>
+    </div>
+
+    <div id="tips">
+      <p>Click vao man hinh de bat dau (Pointer Lock).</p>
+      <p>Di chuyen chuot de nhin, WASD de di chuyen.</p>
+      <p>Giu chuot trai de keo na, tha chuot de ban.</p>
+    </div>
+
+    <div id="crosshair"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
