@@ -302,14 +302,14 @@ function createDummyTarget() {
   group.add(photoMesh);
 
   const ringOuter = new THREE.Mesh(new THREE.CircleGeometry(0.26, 40), ringRedMat);
-  ringOuter.position.set(0, 1.95, 0.43);
+  ringOuter.position.set(0, 1.95, 0.472);
   ringOuter.castShadow = true;
 
   const ringMid = new THREE.Mesh(new THREE.CircleGeometry(0.17, 40), ringWhiteMat);
-  ringMid.position.set(0, 1.95, 0.432);
+  ringMid.position.set(0, 1.95, 0.474);
 
   const ringCenter = new THREE.Mesh(new THREE.CircleGeometry(0.09, 40), ringCenterMat);
-  ringCenter.position.set(0, 1.95, 0.434);
+  ringCenter.position.set(0, 1.95, 0.476);
 
   group.add(ringOuter, ringMid, ringCenter);
   scene.add(group);
