@@ -342,12 +342,16 @@ const projectiles = [];
 const burstParticles = [];
 const paintMarks = [];
 const tmpV1 = new THREE.Vector3();
+const tmpMoveDir = new THREE.Vector3();
+const tmpMoveForward = new THREE.Vector3();
+const tmpMoveRight = new THREE.Vector3();
 const tmpZoneWorld = new THREE.Vector3();
 const tmpZoomTarget = new THREE.Vector3();
 const tmpZoomProjected = new THREE.Vector3();
 const tmpHitNormal = new THREE.Vector3();
 const tmpPaintHit = new THREE.Vector3();
 const SURFACE_NORMAL_AXIS = new THREE.Vector3(0, 0, 1);
+const WORLD_UP = new THREE.Vector3(0, 1, 0);
 
 let yaw = 0;
 let pitch = 0;
@@ -708,29 +712,38 @@ function updateCameraRotation() {
 }
 
 function updateMovement(dt, elapsedTime) {
-  const moveDir = new THREE.Vector3();
-  const forward = new THREE.Vector3(Math.sin(yaw), 0, -Math.cos(yaw));
-  const right = new THREE.Vector3(Math.cos(yaw), 0, Math.sin(yaw));
+  tmpMoveDir.set(0, 0, 0);
 
-  if (keys.has("KeyW")) moveDir.add(forward);
-  if (keys.has("KeyS")) moveDir.sub(forward);
-  if (keys.has("KeyD")) moveDir.add(right);
-  if (keys.has("KeyA")) moveDir.sub(right);
+  camera.getWorldDirection(tmpMoveForward);
+  tmpMoveForward.y = 0;
+
+  if (tmpMoveForward.lengthSq() > 0.000001) {
+    tmpMoveForward.normalize();
+  } else {
+    tmpMoveForward.set(0, 0, -1);
+  }
+
+  tmpMoveRight.crossVectors(tmpMoveForward, WORLD_UP).normalize();
+
+  if (keys.has("KeyW")) tmpMoveDir.add(tmpMoveForward);
+  if (keys.has("KeyS")) tmpMoveDir.sub(tmpMoveForward);
+  if (keys.has("KeyD")) tmpMoveDir.add(tmpMoveRight);
+  if (keys.has("KeyA")) tmpMoveDir.sub(tmpMoveRight);
 
   let speed = 6;
   if (keys.has("ShiftLeft") || keys.has("ShiftRight")) {
     speed = 9;
   }
 
-  if (moveDir.lengthSq() > 0.0001) {
-    moveDir.normalize();
-    camera.position.addScaledVector(moveDir, speed * dt);
+  if (tmpMoveDir.lengthSq() > 0.0001) {
+    tmpMoveDir.normalize();
+    camera.position.addScaledVector(tmpMoveDir, speed * dt);
   }
 
   camera.position.x = clamp(camera.position.x, WORLD.minX, WORLD.maxX);
   camera.position.z = clamp(camera.position.z, WORLD.minZ, WORLD.maxZ);
 
-  const bob = moveDir.lengthSq() > 0.0001 ? Math.sin(elapsedTime * 10.5) * 0.028 : 0;
+  const bob = tmpMoveDir.lengthSq() > 0.0001 ? Math.sin(elapsedTime * 10.5) * 0.028 : 0;
   camera.position.y = WORLD.cameraHeight + bob;
 }
 
@@ -998,8 +1011,8 @@ function animate() {
   const elapsed = clock.elapsedTime;
 
   updateCharging(performance.now());
-  updateMovement(dt, elapsed);
   updateCameraRotation();
+  updateMovement(dt, elapsed);
   updateTrajectoryPreview();
   updateProjectiles(dt);
   updateBurstParticles(dt);
